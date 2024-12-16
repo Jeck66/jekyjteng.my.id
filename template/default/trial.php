@@ -106,6 +106,6 @@ $randomPassword = generateRandomString();
 
 insertRadcheck($randomUsername, $randomPassword);
 
-header("Location: http://10.10.10.1:3990/login?username={$randomUsername}&password=Accept");
+header("Location: http://jekyjteng.my.id:3990/login?username={$randomUsername}&password=Accept");
 exit();
 ?>
