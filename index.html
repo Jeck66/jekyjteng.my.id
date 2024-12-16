@@ -1,114 +1,199 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-    <title>QRIS</title>
-    <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3B5998">
+    <title>Alpha Hotspot Login</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .appHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #3B5998;
+            color: #fff;
+        }
+        .logo {
+            height: 30px;
+        }
+        .headerButton {
+            cursor: pointer;
+        }
+        .carousel {
+            margin: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .carousel img {
+            width: 100%;
+            height: auto;
+            display: inline-block;
+        }
+        .login-form {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+        }
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #3B5998;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            background: #3B5998;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #2a4378;
+        }
+        .footer-menu {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .footer-menu .item {
+            text-align: center;
+            font-size: 14px;
+        }
+        .footer-menu .icon-wrapper {
+            background: #ddd;
+            border-radius: 50%;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+        .products {
+            display: flex;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .product {
+            flex: 0 0 auto;
+            margin: 0 10px;
+            text-align: center;
+        }
+        .product img {
+            width: 150px;
+            border-radius: 5px;
+        }
+        .product strong {
+            display: block;
+            margin: 5px 0;
+        }
+    </style>
 </head>
+<body>
 
-<body class="bg-white">
-
-    <!-- App Header -->
-    <div class="appHeader no-border">
+    <!-- Header -->
+    <div class="appHeader">
         <div class="left">
-            <a href="http://jekyjteng.my.id:3990" class="headerButton goBack">
-				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"  width="36" height="36" viewBox="0 0 24 24">
-				<path fill="#6236FF" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
-				</svg>
-            </a>
+            <div class="headerButton">
+                <input type="checkbox" id="darkmodeSwitch">
+                <label for="darkmodeSwitch">🌙</label>
+            </div>
         </div>
         <div class="pageTitle">
-            QRIS
+            <img src="assets/img/logo-icon.png" alt="logo" class="logo">
+            <script src="assets/config/namawifi.js"></script>
         </div>
         <div class="right">
-            <a href="bantuan.html" class="headerButton">Bantuan</a>
+            <a href="#Notif" class="headerButton">🔔</a>
         </div>
     </div>
-    <!-- * App Header -->
 
-    <!-- App Capsule -->
-    <div id="appCapsule">
-
-        <div class="section">
-            <div class="splash-page mt-5 mb-5">
-                <div class="mb-3">
-                    <img src="assets/img/sample/qris.png" alt="QR Code" class="img-fluid">
-                </div>
-                <h2 class="mb-2">Scan QR Code/ Unduh Gambar QR ini</h2>
-            <div class="card">
-                <div class="card-body">
-				
-                    <blockquote class="blockquote">
-                        <p class="mb-0"><b>Lakukan Konfirmasi Pembayaran Jika Transaksi SUKSES.</b></p>
-                    </blockquote>
-                    <blockquote class="blockquote">
-                        <p class="mb-0">Cara Pembayaran :</p>
-							<div class="section inset mt-2">
-								<div class="accordion" id="accordionExample1">
- 					               <div class="accordion-item">
-                    					<h2 class="accordion-header">
-                					        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion01">
-                 					           Transaksi Menggunakan Perangkat Lain
-           					             </button>
-          					          </h2>
-          					          <div id="accordion01" class="accordion-collapse collapse" data-bs-parent="#accordionExample1">
-          					              <div class="accordion-body">
-          					                  Silahkan lakukan scan/pemindai <b>QR-Code</b> di atas.
-          					              </div>
-          					          </div>
-          					      </div>
-          					      <div class="accordion-item">
-           					         <h2 class="accordion-header">
-    					                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion02">
-    					                        Transaksi Menggunakan Perangkat Yang Sama
-    					                    </button>
-    					                </h2>
-    					                <div id="accordion02" class="accordion-collapse collapse" data-bs-parent="#accordionExample1">
-    					                    <div class="accordion-body">
-    					                        	<li>Unduh QR Code di atas dengan cara tahan gambar lalu simpan</li>
-       					                         <li>Buka OVO, Gojek, Dana, Link Aja, atau aplikasi mobile-banking yang Anda miliki</li>
-   					                             <li>Pilih opsi bayar lalu unggah QR Code melalui menu di kanan atas</li>
-   					                             <li>Input jumlah nominal yang ingin dibayarkan</li>
-  					                              <li>Masukkan nama lengkap Anda lalu esekusi pembayaran</li>
-  					                      </div>
- 					                   </div>
-					                </div>
- 					           </div>
-					        </div>						
-                    </blockquote>
-                </div>
-            </div>
-            </div>
-        </div>
-
-        <div class="fixed-bar">
-            <div class="row">
-                <div class="col-6">
-                    <a href="http://10.10.10.1:3990" class="headerButton goBack btn btn-lg btn-outline-secondary btn-block">Kembali</a>
-                </div>
-                <div class="col-6">
-                    <a href="bantuan.html" class="btn btn-lg btn-primary btn-block">Konfirmasi</a>
-                </div>
-            </div>
-        </div>
-
+    <!-- Slider -->
+    <div class="carousel">
+        <img src="assets/img/sample/slide/slide1.png" alt="Slide 1">
+        <img src="assets/img/sample/slide/slide2.png" alt="Slide 2">
+        <img src="assets/img/sample/slide/slide3.png" alt="Slide 3">
+        <img src="assets/img/sample/slide/slide4.png" alt="Slide 4">
+        <img src="assets/img/sample/slide/slide5.png" alt="Slide 5">
     </div>
-    <!-- * App Capsule -->
 
+    <!-- Login Form -->
+    <div class="login-form">
+        <h2>Login Hotspot</h2>
+        <form action="$loginpath" method="POST">
+            <input type="hidden" name="challenge" value="$challenge">
+            <input type="hidden" name="uamip" value="$uamip">
+            <input type="hidden" name="uamport" value="$uamport">
+            <input type="hidden" name="userurl" value="$userurl">
+            <input type="text" name="UserName" placeholder="Masukan Kode Voucher / Username" required>
+            <input type="hidden" name="Password" placeholder="Masukan Password">
+            <button class="btn" type="submit">Login</button>
+        </form>
+    </div>
 
-    <!-- ========= JS Files =========  -->
-    <!-- Bootstrap -->
-    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
-    <!-- Splide -->
-    <script src="assets/js/plugins/splide/splide.min.js"></script>
-    <!-- Base Js File -->
-    <script src="assets/js/base.js"></script>
+    <!-- Footer Menu -->
+    <div class="footer-menu">
+        <div class="item">
+            <div class="icon-wrapper">🆓</div>
+            <strong>Coba Gratis</strong>
+        </div>
+        <div class="item">
+            <div class="icon-wrapper">💳</div>
+            <strong>Beli Voucher</strong>
+        </div>
+        <div class="item">
+            <div class="icon-wrapper">❓</div>
+            <strong>Bantuan</strong>
+        </div>
+        <div class="item">
+            <div class="icon-wrapper">📱</div>
+            <strong>Transaksi QRIS</strong>
+        </div>
+    </div>
 
+    <!-- Product Section -->
+    <div class="products">
+        <div class="product">
+            <img src="assets/img/sample/produk/produk1.png" alt="Paket 3 Jam">
+            <strong>Paket 3 Jam</strong>
+            <button class="btn">Rp 2.000</button>
+        </div>
+        <div class="product">
+            <img src="assets/img/sample/produk/produk1.png" alt="Paket 6 Jam">
+            <strong>Paket 6 Jam</strong>
+            <button class="btn">Rp 3.000</button>
+        </div>
+        <div class="product">
+            <img src="assets/img/sample/produk/produk1.png" alt="Paket 1 Hari">
+            <strong>Paket 1 Hari</strong>
+            <button class="btn">Rp 6.000</button>
+        </div>
+        <div class="product">
+            <img src="assets/img/sample/produk/produk1.png" alt="Paket 7 Hari">
+            <strong>Paket 7 Hari</strong>
+            <button class="btn">Rp 25.000</button>
+        </div>
+        <div class="product">
+            <img src="assets/img/sample/produk/produk1.png" alt="Paket 30 Hari">
+            <strong>Paket 30 Hari</strong>
+            <button class="btn">Rp 50.000</button>
+        </div>
+    </div>
 
 </body>
-
 </html>
