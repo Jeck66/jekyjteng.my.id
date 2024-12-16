@@ -217,7 +217,7 @@ echo <<<END
                                     <img src="assets/img/sample/produk/produk1.png" alt="img" class="imaged w-100">
                                     <strong>Paket 3Jam</strong>
 									<strong>
-										<a href="http://10.10.30.1/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
+										<a href="http://jekyjteng.my.id/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
 											Rp 2.000
 										</a>
 									</strong>
@@ -232,7 +232,7 @@ echo <<<END
                                     <img src="assets/img/sample/produk/produk1.png" alt="img" class="imaged w-100">
                                     <strong>Paket 6Jam</strong>
 									<strong>
-										<a href="http://10.10.30.1/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
+										<a href="http://jekyjteng.my.id/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
 											Rp 3.000
 										</a>
 									</strong>
@@ -247,7 +247,7 @@ echo <<<END
                                     <img src="assets/img/sample/produk/produk1.png" alt="img" class="imaged w-100">
                                     <strong>Paket 1Hari</strong>
 									<strong>
-										<a href="http://10.10.30.1/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
+										<a href="http://jekyjteng.my.id/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
 											Rp 6.000
 										</a>
 									</strong>
@@ -262,7 +262,7 @@ echo <<<END
                                     <img src="assets/img/sample/produk/produk1.png" alt="img" class="imaged w-100">
                                     <strong>Paket 7Hari</strong>
 									<strong>
-										<a href="http://10.10.30.1/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
+										<a href="http://jekyjteng.my.id/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
 											Rp 25.000
 										</a>
 									</strong>
@@ -277,7 +277,7 @@ echo <<<END
                                     <img src="assets/img/sample/produk/produk1.png" alt="img" class="imaged w-100">
                                     <strong>Paket 30Hari</strong>
 									<strong>
-										<a href="http://10.10.30.1/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
+										<a href="http://jekyjteng.my.id/raddash/views/dashboard.php" class="btn btn-primary btn-block btn-sm">
 											Rp 50.000
 										</a>
 									</strong>
