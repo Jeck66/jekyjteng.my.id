@@ -1,0 +1,51 @@
+Kontak :
+Grup Telegram Yang Saya Ikuti => https://t.me/mutiara_wrt
+Telegram Pemilik Grup MUTIARA-WRT => https://t.me/Maizil41
+Telegram Saya => https://t.me/Taufik_N_A
+Sawer Kopi Ke Dana => 088806938573
+Tes Pesan Masuk Chat Telegram Formulir (Halaman Bantuan.html - Bantuanstatus.html) => https://t.me/+AxRwTtWbmw5kNWQ1
+
+Peningkatan V2 dari V1:
+- Menggabungkan halaman kontak.html & faq.html menjadi bantuan.html
+- Menghapus halaman paket.html digabung dalam login.php
+- Penambahan Banner Slide Promosi di login page
+- Penambahan foto produk untuk paket voucher
+- Menu bawah lebih simpel, dari 5 menu menjadi 3 menu saja
+- Perubahan tampilan (status) button kontak menjadi bantuan
+
+Fitur :
+Login Voucher/Member/Qr-Code (RadiusMonitor)/Coba Gratis(Trial)
+Translate Format Waktu status.php (Terhubung & Sisa Waktu) "1m 2w 3d 4h 5m 6s" menjadi "1 bln 2 mgg 3 hr 4 jam 5 mnt 6 dtk"
+Mode Gelap/ Dark Mode
+Tampilan Mobile Responsif
+Halaman Pembayaran (Scan QRIS)
+Halaman Bantuan ( Data formulir langsung masuk ke Telegram Messenger)
+Menu Beranda X Status dan Menu Logout X Login QR-Code (Jika user belum login maka pada halaman Pembayaran & Bantuan  akan muncul menu "Beranda & Login QR-Code", jika user sudah login maka akan muncul menu "Status & Logout")
+Mudah di edit dengan folder khusus (Config) 
+
+PENTING: 
+Tambahkan domain berikut di chilli ===> option uamdomain.(Untuk bypass Formulir Kontak Api Telgeram sebelum user login & ScanQR by Maizil41) :
+Tambahkan di chilli/ ===> option uamdomain 'api.telegram.org,maizil41.github.io'
+
+Yang PERLU di edit :
+- Folder assets/config
+	*Nama WiFi ===> assets/config/namawifi.js
+	*Teks Supported/Coppyrigth ===> assets/config/supported.js
+	*No Kontak Telepon ===> assets/config/notelepon.js
+	*Alamat ===> assets/config/alamat.js
+	*Informasi (Notifikasi) ===> assets/config/informasi.js
+	*Link GMaps ===> assets/config/googlemaps.js
+	*Halaman BANTUAN (Formulir Telegram) ===> assets/config/telegrambot.js baris 11 & 12
+        *WhatsApp Pada Menu Status ===> assets/config/whatsapp.js
+- Banner Slide ===> template/default/login.php baris 78 - 122 / 5 jenis slide ( Komentar atas: <!-- gambar slider awal --> ,Komentar bawah: <!-- *akhir gambar slider --> )
+	* Gambar banner slide ==> assets/img/sample/slide/
+- Harga Paket Voucher ===> template/default/login.php baris 213 - 287 / 5 jenis produk ( Komentar atas: <!-- list produk --> ,Komentar bawah: <!-- * batas list produk --> )
+	* Gambar paket voucher ==> assets/img/sample/produk/
+- Logo ===> Ganti logo-icon.png pada folder assets/img/ dengan nama yang sama
+- Favicon ===> Ganti favicon.png pada folder assets/img/ dengan nama yang sama
+- Qris ===> Ganti qris.png pada folder assets/img/sample/ dengan nama yang sama
+
+Ukuran Slide Banner
+- Disarankan Landscape 2:1
+Ukuran Foto Produk
+- Disarankan Persegi 1:1
