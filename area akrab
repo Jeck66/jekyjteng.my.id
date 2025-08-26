@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Area Kuota Akrab XL</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .search-box {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .input-group select, .input-group input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .results {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .area-1 {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .area-2 {
+            color: #2196F3;
+            font-weight: bold;
+        }
+        
+        .area-3 {
+            color: #FF9800;
+            font-weight: bold;
+        }
+        
+        .area-4 {
+            color: #F44336;
+            font-weight: bold;
+        }
+        
+        .no-results {
+            padding: 30px;
+            text-align: center;
+            color: #777;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+            padding: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .input-group select, .input-group input {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cek Area Kuota Akrab XL</h1>
+            <p class="description">Cek area paket XL Akrab berdasarkan provinsi dan kabupaten/kota. Temukan informasi area untuk mengetahui tarif dan benefit yang berlaku di lokasi Anda.</p>
+        </header>
+        
+        <div class="search-box">
+            <div class="input-group">
+                <select id="provinsi-select">
+                    <option value="">Pilih Provinsi</option>
+                </select>
+                <select id="kabupaten-select">
+                    <option value="">Pilih Kabupaten/Kota</option>
+                </select>
+                <input type="text" id="search-input" placeholder="Cari kabupaten/kota...">
+            </div>
+            <button id="search-btn">Cari Area</button>
+        </div>
+        
+        <div class="results">
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>Provinsi</th>
+                        <th>Kabupaten/Kota</th>
+                        <th>Area</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                    <!-- Results will be populated here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <footer>
+            <p>© 2023 Cek Area Kuota Akrab XL. Informasi ini diperbarui secara berkala.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data area kuota akrab XL
+        const areaData = [
+            { provinsi: "Banten", kabupaten: "Kota Tangerang Selatan, Kota Tangerang, Kab. Tangerang, Kab. Pandeglang, Kab. Lebak, Kab. Serang, Kota Serang, Kota Cilegon", area: 2 },
+            { provinsi: "DI Yogyakarta", kabupaten: "Kab. Kulon Progo, Kota Yogyakarta, Kab. Sleman, Kab. Bantul, Kab. Gunungkidul", area: 1 },
+            { provinsi: "DKI Jakarta", kabupaten: "Kota Jakarta Pusat, Kota Jakarta Selatan, Kota Jakarta Barat, Kota Jakarta Timur, Kota Jakarta Utara", area: 2 },
+            { provinsi: "DKI Jakarta", kabupaten: "Kab. Kepulauan Seribu", area: 3 },
+            { provinsi: "Jawa Barat", kabupaten: "Kab. Bandung, Kab. Kuningan, Kab. Purwakarta, Kota Bandung", area: 1 },
+            { provinsi: "Jawa Barat", kabupaten: "Kab. Bandung Barat, Kota Cimahi, Kab. Cirebon, Kota Cirebon, Kab. Indramayu, Kab. Subang", area: 2 },
+            { provinsi: "Jawa Barat", kabupaten: "Kab. Bogor, Kota Bogor, Kota Depok, Kota Bekasi, Kota Banjar, Kab. Ciamis, Kota Tasikmalaya, Kab. Majalengka, Kab. Sumedang, Kab. Bekasi, Kab. Tasikmalaya, Kab. Garut", area: 3 },
+            { provinsi: "Jawa Barat", kabupaten: "Kab. Cianjur, Kab. Pangandaran, Kab. Karawang, Kota Sukabumi, Kab. Sukabumi", area: 4 },
+            { provinsi: "Jawa Tengah", kabupaten: "Kab. Tegal, Kota Surakarta, Kota Tegal, Kab. Brebes, Kab. Kebumen, Kab. Pemalang, Kota Semarang", area: 2 },
+            { provinsi: "Jawa Tengah", kabupaten: "Kab. Boyolali, Kota Salatiga, Kab. Semarang, Kab. Cilacap, Kab. Grobogan, Kab. Kendal, Kab. Rembang", area: 3 },
+            { provinsi: "Jawa Tengah", kabupaten: "Kota Pekalongan, Kab. Pekalongan, Kab. Batang, Kab. Purbalingga, Kab. Kudus, Kab. Sukoharjo, Kab. Klaten, Kota Magelang, Kab. Banyumas, Kab. Magelang, Kab. Temanggung, Kab. Sragen, Kab. Banjarnegara, Kab. Karanganyar, Kab. Wonosobo, Kab. Jepara, Kab. Demak, Kab. Purworejo, Kab. Blora, Kab. Wonogiri, Kab. Pati", area: 4 },
+            { provinsi: "Jawa Timur", kabupaten: "Kota Probolinggo, Kab. Bangkalan, Kab. Sidoarjo, Kab. Banyuwangi, Kota Surabaya, Kab. Sampang, Kab. Pamekasan, Kab. Sumenep, Kab. Pacitan", area: 2 },
+            { provinsi: "Jawa Timur", kabupaten: "Kab. Lumajang, Kab. Probolinggo", area: 3 },
+            { provinsi: "Jawa Timur", kabupaten: "Kab. Jombang, Kota Blitar, Kab. Blitar, Kota Kediri, Kab. Lamongan, Kab. Kediri, Kab. Ngawi, Kab. Mojokerto, Kota Mojokerto, Kab. Magetan, Kab. Gresik, Kab. Tulungagung, Kab. Nganjuk, Kab. Pasuruan, Kota Pasuruan, Kab. Bojonegoro, Kab. Madiun, Kab. Bondowoso, Kab. Tuban, Kota Madiun, Kab. Situbondo, Kab. Jember, Kota Malang, Kab. Malang, Kab. Ponorogo, Kota Batu, Kab. Trenggalek", area: 4 },
+            { provinsi: "Bengkulu", kabupaten: "Kab. Seluma", area: 3 },
+            { provinsi: "Bengkulu", kabupaten: "Kab. Bengkulu Selatan, Kab. Kaur, Kab. Lebong, Kab. Rejang Lebong, Kab. Bengkulu Tengah, Kota Bengkulu, Kab. Bengkulu Utara, Kab. Kepahiang, Kab. Muko Muko", area: 4 },
+            { provinsi: "Jambi", kabupaten: "Kab. Batanghari, Kota Jambi, Kab. Tanjung Jabung Barat, Kab. Muaro Jambi, Kab. Sarolangun", area: 3 },
+            { provinsi: "Jambi", kabupaten: "Kab. Tanjung Jabung Timur, Kab. Kerinci, Kab. Bungo, Kab. Tebo, Kab. Merangin, Kota Sungai Penuh", area: 4 },
+            { provinsi: "Kepulauan Bangka Belitung", kabupaten: "Kab. Bangka Selatan, Kota Pangkal Pinang, Kab. Belitung, Kab. Belitung Timur", area: 2 },
+            { provinsi: "Kepulauan Bangka Belitung", kabupaten: "Kab. Bangka, Kab. Bangka Tengah, Kab. Bangka Barat", area: 3 },
+            { provinsi: "Kepulauan Riau", kabupaten: "Kota Batam", area: 2 },
+            { provinsi: "Kepulauan Riau", kabupaten: "Kab. Karimun, Kab. Bintan, Kota Tanjung Pinang", area: 3 },
+            { provinsi: "Kepulauan Riau", kabupaten: "Kab. Lingga, Kab. Kepulauan Anambas, Kab. Natuna", area: 4 },
+            { provinsi: "Lampung", kabupaten: "Kab. Lampung Tengah, Kab. Pringsewu, Kota Metro, Kab. Pesawaran, Kab. Lampung Selatan, Kota Bandar Lampung", area: 3 },
+            { provinsi: "Lampung", kabupaten: "Kab. Lampung Barat, Kab. Lampung Timur, Kab. Tulang Bawang Barat, Kab. Way Kanan, Kab. Tulang Bawang, Kab. Tanggamus, Kab. Pesisir Barat, Kab. Lampung Utara, Kab. Mesuji", area: 4 },
+            { provinsi: "Nanggroe Aceh Darussalam", kabupaten: "Kab. Aceh Barat Daya, Kab. Aceh Besar, Kota Sabang, Kab. Gayo Lues", area: 2 },
+            { provinsi: "Nanggroe Aceh Darussalam", kabupaten: "Kab. Aceh Jaya, Kab. Aceh Selatan, Kab. Aceh Tenggara, Kab. Nagan Raya, Kota Banda Aceh", area: 3 },
+            { provinsi: "Nanggroe Aceh Darussalam", kabupaten: "Kab. Aceh Barat, Kab. Aceh Singkil, Kab. Aceh Tamiang, Kab. Aceh Tengah, Kota Subulussalam, Kab. Bener Meriah, Kab. Aceh Utara, Kota Lhokseumawe, Kab. Pidie, Kab. Aceh Timur, Kab. Simeulue, Kota Langsa, Kab. Bireuen, Kab. Pidie Jaya", area: 4 },
+            { provinsi: "Riau", kabupaten: "Kota Pekanbaru", area: 2 },
+            { provinsi: "Riau", kabupaten: "Kab. Kuantan Singingi, Kab. Pelalawan, Kab. Kampar, Kab. Siak, Kota Dumai, Kab. Rokan Hilir, Kab. Indragiri Hulu, Kab. Kepulauan Meranti, Kab. Bengkalis", area: 3 },
+            { provinsi: "Riau", kabupaten: "Kab. Rokan Hulu, Kab. Indragiri Hilir", area: 4 },
+            { provinsi: "Sumatera Barat", kabupaten: "Kab. Kepulauan Mentawai", area: 2 },
+            { provinsi: "Sumatera Barat", kabupaten: "Kota Payakumbuh, Kota Padang Panjang, Kab. Sijunjung, Kab. Padang Pariaman, Kota Padang, Kab. Solok Selatan", area: 3 },
+            { provinsi: "Sumatera Barat", kabupaten: "Kab. Pasaman Barat, Kab. Pasaman, Kab. Lima Puluh Kota, Kab. Tanah Datar, Kab. Dharmasraya, Kota Solok, Kab. Agam, Kab. Solok, Kota Bukittinggi, Kota Pariaman, Kota Sawahlunto, Kab. Pesisir Selatan", area: 4 },
+            { provinsi: "Sumatera Selatan", kabupaten: "Kab. Ogan Komering Ilir, Kab. Penukal Abab Lematang Ilir, Kab. Banyuasin, Kota Palembang, Kab. Ogan Ilir", area: 3 },
+            { provinsi: "Sumatera Selatan", kabupaten: "Kab. Ogan Komering Ulu Timur, Kab. Ogan Komering Ulu Selatan, Kab. Ogan Komering Ulu, Kab. Musi Rawas, Kab. Musi Rawas Utara, Kab. Empat Lawang, Kota Pagar Alam, Kota Lubuk Linggau, Kab. Musi Banyuasin, Kab. Muara Enim, Kab. Lahat, Kota Prabumulih", area: 4 },
+            { provinsi: "Sumatera Utara", kabupaten: "Kab. Karo, Kota Medan, Kab. Dairi", area: 2 },
+            { provinsi: "Sumatera Utara", kabupaten: "Kota Binjai, Kota Tebing Tinggi, Kab. Serdang Bedagai, Kab. Langkat, Kab. Deli Serdang, Kab. Batu Bara, Kota Tanjung Balai, Kab. Asahan, Kota Gunungsitoli, Kab. Nias Barat, Kab. Nias Selatan, Kab. Nias Utara", area: 3 },
+            { provinsi: "Sumatera Utara", kabupaten: "Kab. Pakpak Bharat, Kab. Mandailing Natal, Kab. Padang Lawas, Kab. Labuhanbatu Utara, Kota Padangsidimpuan, Kab. Tapanuli Selatan, Kab. Labuhanbatu Selatan, Kab. Labuhanbatu, Kab. Tapanuli Utara, Kab. Padang Lawas Utara, Kab. Humbang Hasundutan, Kab. Simalungun, Kab. Toba Samosir, Kota Pematangsiantar, Kab. Tapanuli Tengah, Kab. Samosir, Kota Sibolga, Kab. Nias", area: 4 },
+            { provinsi: "Kalimantan Barat", kabupaten: "Kab. Sekadau, Kab. Kapuas Hulu, Kab. Sintang, Kab. Bengkayang, Kab. Melawi, Kab. Sambas, Kab. Sanggau, Kab. Kubu Raya, Kota Pontianak, Kab. Kayong Utara, Kab. Landak, Kab. Mempawah, Kota Singkawang, Kab. Ketapang", area: 4 },
+            { provinsi: "Kalimantan Selatan", kabupaten: "Kab. Hulu Sungai Tengah, Kab. Tapin, Kab. Hulu Sungai Utara, Kab. Tabalong, Kota Banjarmasin, Kab. Banjar, Kab. Tanah Bumbu, Kota Banjarbaru, Kab. Hulu Sungai Selatan", area: 2 },
+            { provinsi: "Kalimantan Selatan", kabupaten: "Kab. Balangan, Kab. Barito Kuala, Kab. Tanah Laut, Kab. Kotabaru", area: 3 },
+            { provinsi: "Kalimantan Tengah", kabupaten: "Kab. Kapuas, Kab. Pulang Pisau, Kota Palangkaraya", area: 3 },
+            { provinsi: "Kalimantan Tengah", kabupaten: "Kab. Seruyan, Kab. Kotawaringin Barat, Kab. Katingan, Kab. Kotawaringin Timur, Kab. Sukamara, Kab. Lamandau, Kab. Murung Raya, Kab. Barito Timur, Kab. Barito Utara, Kab. Barito Selatan, Kab. Gunung Mas", area: 4 },
+            { provinsi: "Kalimantan Timur", kabupaten: "Kab. Penajam Paser Utara, Kota Balikpapan, Kab. Paser, Kab. Kutai Kartanegara, Kota Samarinda, Kota Bontang, Kab. Berau, Kab. Kutai Timur, Kab. Kutai Barat, Kab. Mahakam Ulu", area: 4 },
+            { provinsi: "Kalimantan Utara", kabupaten: "Kab. Tana Tidung, Kab. Malinau, Kab. Bulungan, Kota Tarakan, Kab. Nunukan", area: 4 },
+            { provinsi: "Gorontalo", kabupaten: "Kab. Pahuwato, Kab. Boalemo, Kab. Gorontalo, Kota Gorontalo, Kab. Gorontalo Utara, Kab. Bone Bolango", area: 4 },
+            { provinsi: "Sulawesi Barat", kabupaten: "Kab. Mamuju Tengah", area: 2 },
+            { provinsi: "Sulawesi Barat", kabupaten: "Kab. Majene, Kab. Polewali Mandar, Kab. Mamuju Utara", area: 3 },
+            { provinsi: "Sulawesi Barat", kabupaten: "Kab. Mamuju, Kab. Mamasa", area: 4 },
+            { provinsi: "Sulawesi Selatan", kabupaten: "Kab. Barru, Kota Pare Pare, Kab. Pinrang", area: 2 },
+            { provinsi: "Sulawesi Selatan", kabupaten: "Kab. Sinjai, Kab. Enrekang, Kab. Sidenreng Rappang, Kab. Luwu Timur, Kab. Soppeng, Kab. Tana Toraja", area: 3 },
+            { provinsi: "Sulawesi Selatan", kabupaten: "Kab. Kepulauan Selayar, Kab. Takalar, Kab. Jeneponto, Kab. Bulukumba, Kab. Pangkajene Kepulauan, Kota Makassar, Kab. Gowa, Kab. Maros, Kab. Bone, Kab. Wajo, Kab. Luwu, Kab. Luwu Utara, Kota Palopo, Kab. Toraja Utara", area: 4 },
+            { provinsi: "Sulawesi Tengah", kabupaten: "Kab. Banggai Kepulauan, Kab. Banggai Laut, Kota Palu, Kab. Toli Toli, Kab. Tojo Una Una, Kab. Morowali, Kab. Morowali Utara", area: 3 },
+            { provinsi: "Sulawesi Tengah", kabupaten: "Kab. Banggai, Kab. Parigi Moutong, Kab. Donggala, Kab. Sigi, Kab. Poso, Kab. Buol", area: 4 },
+            { provinsi: "Sulawesi Tenggara", kabupaten: "Kab. Konawe Kepulauan, Kab. Konawe Utara, Kab. Buton Utara, Kab. Wakatobi", area: 2 },
+            { provinsi: "Sulawesi Tenggara", kabupaten: "Kota Bau Bau, Kab. Muna, Kab. Buton Selatan, Kab. Buton Tengah, Kab. Muna Barat", area: 3 },
+            { provinsi: "Sulawesi Tenggara", kabupaten: "Kab. Kolaka, Kab. Kolaka Utara, Kab. Konawe, Kab. Konawe Selatan, Kota Kendari, Kab. Kolaka Timur, Kab. Buton, Kab. Bombana", area: 4 },
+            { provinsi: "Sulawesi Utara", kabupaten: "Kab. Bolaang Mongondow, Kab. Bolaang Mongondow Selatan, Kota Kotamobagu, Kab. Minahasa Selatan, Kab. Bolaang Mongondow Timur, Kab. Minahasa Tenggara, Kab. Bolaang Mongondow Utara, Kota Tomohon, Kab. Minahasa, Kota Manado, Kab. Minahasa Utara, Kota Bitung, Kab. Kepulauan Sangihe, Kab. Kepulauan Talaud, Kab. Siau Tagulandang Biaro", area: 4 },
+            { provinsi: "Bali", kabupaten: "Kab. Jembrana, Kab. Buleleng", area: 1 },
+            { provinsi: "Bali", kabupaten: "Kab. Badung, Kab. Karangasem, Kab. Tabanan, Kab. Bangli, Kab. Gianyar, Kab. Klungkung, Kota Denpasar", area: 2 },
+            { provinsi: "Nusa Tenggara Barat", kabupaten: "Kab. Lombok Barat, Kab. Lombok Timur, Kota Mataram, Kab. Lombok Tengah, Kab. Lombok Utara, Kab. Sumbawa Barat, Kab. Sumbawa, Kota Bima, Kab. Dompu", area: 2 },
+            { provinsi: "Nusa Tenggara Barat", kabupaten: "Kab. Bima", area: 4 },
+            { provinsi: "Nusa Tenggara Timur", kabupaten: "Kab. Alor, Kota Kupang, Kab. Kupang, Kab. Malaka, Kab. Manggarai Barat, Kab. Timor Tengah Selatan, Kab. Belu, Kab. Sikka, Kab. Timor Tengah Utara, Kab. Lembata, Kab. Manggarai Timur, Kab. Ende, Kab. Sumba Barat Daya, Kab. Rote Ndao, Kab. Nagekeo, Kab. Flores Timur, Kab. Ngada, Kab. Sumba Tengah, Kab. Manggarai, Kab. Sumba Barat, Kab. Sumba Timur, Kab. Sabu Raijua", area: 4 },
+            { provinsi: "Maluku", kabupaten: "Kab. Maluku Tenggara Barat, Kab. Kepulauan Aru, Kota Tual, Kab. Seram Bagian Barat, Kab. Maluku Tengah, Kab. Seram Bagian Timur, Kota Ambon, Kab. Maluku Tenggara, Kab. Maluku Barat Daya, Kab. Buru Selatan, Kab. Buru", area: 1 },
+            { provinsi: "Maluku Utara", kabupaten: "Kab. Halmahera Barat, Kab. Halmahera Utara, Kab. Kepulauan Sula, Kab. Halmahera Timur, Kab. Pulau Taliabu, Kab. Halmahera Selatan, Kota Tidore Kepulauan, Kota Ternate, Kab. Halmahera Tengah, Kab. Pulau Morotai", area: 1 },
+            { provinsi: "Papua", kabupaten: "Kab. Asmat, Kab. Jayapura, Kab. Mimika, Kab. Keerom, Kab. Biak Numfor, Kota Jayapura, Kab. Kepulauan Yapen, Kab. Boven Digoel, Kab. Merauke, Kab. Deiyai, Kab. Dogiyai, Kab. Intan Jaya, Kab. Jayawijaya, Kab. Lanny Jaya, Kab. Mamberamo Raya, Kab. Mamberamo Tengah, Kab. Mappi, Kab. Nabire, Kab. Nduga, Kab. Paniai, Kab. Pegunungan Bintang, Kab. Puncak, Kab. Puncak Jaya, Kab. Sarmi, Kab. Supiori, Kab. Tolikara, Kab. Waropen, Kab. Yahukimo, Kab. Yalimo", area: 1 },
+            { provinsi: "Papua Barat", kabupaten: "Kab. Teluk Bintuni, Kab. Sorong Selatan, Kab. Sorong, Kab. Teluk Wondama, Kota Sorong, Kab. Manokwari, Kab. Fak Fak, Kab. Kaimana, Kab. Manokwari Selatan, Kab. Maybrat, Kab. Pegunungan Arfak, Kab. Raja Ampat, Kab. Tambrauw", area: 1 }
+        ];
+
+        // Get unique provinces for dropdown
+        const provinces = [...new Set(areaData.map(item => item.provinsi))];
+        const provinsiSelect = document.getElementById('provinsi-select');
+        const kabupatenSelect = document.getElementById('kabupaten-select');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const resultsBody = document.getElementById('results-body');
+
+        // Populate province dropdown
+        provinces.forEach(province => {
+            const option = document.createElement('option');
+            option.value = province;
+            option.textContent = province;
+            provinsiSelect.appendChild(option);
+        });
+
+        // Update kabupaten dropdown based on selected province
+        provinsiSelect.addEventListener('change', function() {
+            const selectedProvince = this.value;
+            kabupatenSelect.innerHTML = '<option value="">Pilih Kabupaten/Kota</option>';
+            
+            if (selectedProvince) {
+                const kabupatenList = [];
+                areaData.filter(item => item.provinsi === selectedProvince)
+                    .forEach(item => {
+                        item.kabupaten.split(', ').forEach(kab => {
+                            if (!kabupatenList.includes(kab)) {
+                                kabupatenList.push(kab);
+                            }
+                        });
+                    });
+                
+                kabupatenList.sort().forEach(kabupaten => {
+                    const option = document.createElement('option');
+                    option.value = kabupaten;
+                    option.textContent = kabupaten;
+                    kabupatenSelect.appendChild(option);
+                });
+            }
+        });
+
+        // Search function
+        function searchArea() {
+            const selectedProvince = provinsiSelect.value;
+            const selectedKabupaten = kabupatenSelect.value;
+            const searchText = searchInput.value.toLowerCase();
+            
+            let filteredData = areaData;
+            
+            if (selectedProvince) {
+                filteredData = filteredData.filter(item => item.provinsi === selectedProvince);
+            }
+            
+            if (selectedKabupaten) {
+                filteredData = filteredData.filter(item => item.kabupaten.includes(selectedKabupaten));
+            }
+            
+            if (searchText) {
+                filteredData = filteredData.filter(item => 
+                    item.kabupaten.toLowerCase().includes(searchText) || 
+                    item.provinsi.toLowerCase().includes(searchText)
+                );
+            }
+            
+            displayResults(filteredData);
+        }
+
+        // Display results
+        function displayResults(data) {
+            resultsBody.innerHTML = '';
+            
+            if (data.length === 0) {
+                resultsBody.innerHTML = '<tr><td colspan="3" class="no-results">Tidak ada data yang ditemukan</td></tr>';
+                return;
+            }
+            
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                
+                const provinsiCell = document.createElement('td');
+                provinsiCell.textContent = item.provinsi;
+                
+                const kabupatenCell = document.createElement('td');
+                kabupatenCell.textContent = item.kabupaten;
+                
+                const areaCell = document.createElement('td');
+                areaCell.textContent = `Area ${item.area}`;
+                areaCell.className = `area-${item.area}`;
+                
+                row.appendChild(provinsiCell);
+                row.appendChild(kabupatenCell);
+                row.appendChild(areaCell);
+                
+                resultsBody.appendChild(row);
+            });
+        }
+
+        // Event listeners
+        searchBtn.addEventListener('click', searchArea);
+        searchInput.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                searchArea();
+            }
+        });
+
+        // Initial display of all data
+        displayResults(areaData);
+    </script>
+</body>
+</html>
